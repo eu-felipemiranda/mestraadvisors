@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestra Advisors | Marmoraria de Alto Padrão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --mestra-blue: #0a1d37;
+            --mestra-gold: #c5a059;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .text-mestra-blue { color: var(--mestra-blue); }
+        .bg-mestra-blue { background-color: var(--mestra-blue); }
+        .text-mestra-gold { color: var(--mestra-gold); }
+        .bg-mestra-gold { background-color: var(--mestra-gold); }
+        .border-mestra-gold { border-color: var(--mestra-gold); }
+        
+        .hero-section {
+            background: linear-gradient(rgba(10, 29, 55, 0.75), rgba(10, 29, 55, 0.75)), url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.9s ease-out;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        input, select, textarea {
+            border-bottom: 1px solid #e2e8f0 !important;
+            border-radius: 0 !important;
+            padding: 0.85rem 0 !important;
+            background: transparent !important;
+            width: 100%;
+        }
+        input:focus, select:focus {
+            border-color: var(--mestra-gold) !important;
+            outline: none !important;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegação -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-mestra-blue rounded flex items-center justify-center text-white">
+                    <i data-lucide="mountain" size="28"></i>
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-2xl font-bold tracking-tighter text-mestra-blue uppercase text-mestra-blue">Mestra</span>
+                    <span class="text-[11px] tracking-[0.4em] text-mestra-gold font-bold uppercase">Advisors</span>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-10 text-xs font-bold uppercase tracking-[0.2em]">
+                <a href="#galeria" class="hover:text-mestra-gold transition text-mestra-blue">Portfólio</a>
+                <a href="#parceiros" class="hover:text-mestra-gold transition text-mestra-blue">Parcerias</a>
+                <a href="#localizacao" class="hover:text-mestra-gold transition text-mestra-blue">Onde Estamos</a>
+                <a href="#cadastro" class="bg-mestra-blue text-white px-6 py-3 rounded-full hover:bg-mestra-gold transition">Consultoria</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="h-screen relative flex items-center justify-center text-center text-white hero-section">
+        <div class="max-w-4xl px-6 pt-20">
+            <span class="text-mestra-gold text-xs font-bold uppercase tracking-[0.5em] mb-6 block">Marmoraria de Luxo</span>
+            <h1 class="text-5xl md:text-8xl mb-8 leading-[1.1] font-serif">Transformando o ordinário em <span class="italic text-mestra-gold">extraordinário</span>.</h1>
+            <p class="text-lg md:text-2xl text-gray-200 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                Consultoria especializada em rochas ornamentais para projectos que exigem o mais alto nível de precisão técnica e estética.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="#cadastro" class="bg-mestra-gold text-white px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest shadow-2xl hover:scale-105 transition-transform">
+                    Iniciar Diagnóstico de Obra
+                </a>
+                <a href="#galeria" class="border border-white/30 backdrop-blur-sm text-white px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-mestra-blue transition-all">
+                    Ver Portfólio
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+            <i data-lucide="chevron-down" class="text-white"></i>
+        </div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-serif text-mestra-blue mb-4">A Arte da Execução</h2>
+                <div class="w-24 h-1 bg-mestra-gold mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-3xl aspect-[3/4] scroll-reveal shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-t from-mestra-blue via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute inset-0 p-10 flex flex-col justify-end">
+                        <p class="text-white font-serif text-2xl mb-2">Clareza Infinita</p>
+                        <p class="text-mestra-gold text-xs uppercase tracking-widest">Revestimentos em Mármore Nobre</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-3xl aspect-[3/4] scroll-reveal shadow-xl" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80" alt="" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-t from-mestra-blue via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute inset-0 p-10 flex flex-col justify-end">
+                        <p class="text-white font-serif text-2xl mb-2">Design Esculpido</p>
+                        <p class="text-mestra-gold text-xs uppercase tracking-widest">Cubas em Nero Marquina</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-3xl aspect-[3/4] scroll-reveal shadow-xl" style="transition-delay: 400ms;">
+                    <img src="https://images.unsplash.com/photo-1600607687940-c52af0463951?auto=format&fit=crop&w=800&q=80" alt="" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-t from-mestra-blue via-transparent to-transparent opacity-80"></div>
+                    <div class="absolute inset-0 p-10 flex flex-col justify-end">
+                        <p class="text-white font-serif text-2xl mb-2">Ilhas de Convívio</p>
+                        <p class="text-mestra-gold text-xs uppercase tracking-widest">Quartzitos de Alta Performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Parcerias -->
+    <section id="parceiros" class="py-32 bg-mestra-blue text-white overflow-hidden relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-mestra-gold"></div>
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+            <div class="scroll-reveal">
+                <h2 class="text-4xl md:text-5xl font-serif mb-8 text-mestra-gold leading-tight text-mestra-gold">Programa de Parceiros Advisors</h2>
+                <p class="text-gray-300 text-xl font-light leading-relaxed mb-10">
+                    Arquitectos e Designers: o vosso projecto merece uma execução à altura da vossa visão. Criámos um ecossistema focado em **Indicação Profissional**, garantindo suporte técnico total.
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <div class="text-mestra-gold mb-4"><i data-lucide="award" size="32"></i></div>
+                        <p class="font-bold mb-1">Selos de Qualidade</p>
+                        <p class="text-xs text-gray-400">Garantia total para o seu cliente final.</p>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <div class="text-mestra-gold mb-4"><i data-lucide="trending-up" size="32"></i></div>
+                        <p class="font-bold mb-1">Comissionamento</p>
+                        <p class="text-xs text-gray-400">Transparência e pontualidade.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card rounded-[40px] p-10 md:p-14 text-mestra-blue shadow-2xl scroll-reveal">
+                <h3 class="text-3xl font-serif mb-8 text-center text-mestra-blue">Indicar Projecto</h3>
+                <form class="space-y-8" id="partner-form">
+                    <input type="text" id="partner-name" placeholder="Seu Nome ou Nome do Escritório" required>
+                    <input type="email" id="partner-email" placeholder="E-mail Profissional" required>
+                    <select id="partner-area" required>
+                        <option value="">Área de Atuação</option>
+                        <option value="Arquiteto">Arquitectura</option>
+                        <option value="Interior Design">Design de Interiores</option>
+                        <option value="Engenharia">Engenharia / Construtora</option>
+                    </select>
+                    <button type="submit" class="w-full bg-mestra-blue text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-mestra-gold transition-all">
+                        Solicitar Acesso ao Portal
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário Dinâmico de Diagnóstico -->
+    <section id="cadastro" class="py-32 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl md:text-5xl font-serif text-mestra-blue mb-6 tracking-tight text-mestra-blue">Diagnóstico Advisors</h2>
+                <p class="text-gray-500 font-light text-lg">Inicie o seu projecto de alto padrão com um atendimento qualificado.</p>
+            </div>
+
+            <div class="bg-white rounded-[40px] shadow-2xl p-8 md:p-16 scroll-reveal">
+                <form id="master-form" class="space-y-10">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold text-mestra-gold uppercase tracking-[0.2em]">O que descreve melhor o seu momento?</label>
+                            <select id="user-profile" required class="text-lg">
+                                <option value="">Selecione...</option>
+                                <option value="obra">Tenho uma obra em andamento</option>
+                                <option value="parceiro">Desejo indicar um cliente / Parceria</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold text-mestra-gold uppercase tracking-[0.2em]">Nome Completo</label>
+                            <input type="text" id="full-name" required class="text-lg" placeholder="Seu nome">
+                        </div>
+                    </div>
+
+                    <div id="obra-fields" class="hidden space-y-10 animate-fade-in border-t border-gray-100 pt-10">
+                        <div class="grid md:grid-cols-2 gap-10">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-mestra-gold uppercase tracking-[0.2em]">Tipo de Rocha Preferencial</label>
+                                <select id="stone-type">
+                                    <option value="Indefinido">Preciso de ajuda na escolha</option>
+                                    <option value="Mármore">Mármore Natural</option>
+                                    <option value="Quartzito">Quartzito Exótico</option>
+                                    <option value="Granito">Granito Premium</option>
+                                    <option value="Sintético">Sintético</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-mestra-gold uppercase tracking-[0.2em]">Ambiente Principal</label>
+                                <select id="environment">
+                                    <option value="Cozinha">Cozinha / Área Gourmet</option>
+                                    <option value="Banheiro">Banheiro / Suíte</option>
+                                    <option value="Escada">Escadas</option>
+                                    <option value="Fachada">Pisos e Fachadas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-10">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-mestra-gold uppercase tracking-[0.2em]">Já possui metragens?</label>
+                                <div class="flex gap-10 py-4">
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <input type="radio" name="metragem" value="sim" class="w-5 h-5 accent-mestra-gold"> 
+                                        <span>Sim</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <input type="radio" name="metragem" value="nao" checked class="w-5 h-5 accent-mestra-gold"> 
+                                        <span>Não</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-mestra-gold uppercase tracking-[0.2em]">Endereço da Obra</label>
+                                <input type="text" id="obra-address" placeholder="Bairro e Cidade">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-10 border-t border-gray-100 pt-10">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold text-mestra-gold uppercase tracking-[0.2em]">WhatsApp Direct</label>
+                            <input type="tel" id="whatsapp-num" required placeholder="(00) 00000-0000">
+                        </div>
+                        <div class="flex items-end">
+                            <button type="submit" id="submit-btn" class="w-full bg-mestra-blue text-white py-6 rounded-2xl font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-mestra-gold transition-all shadow-xl">
+                                Enviar e Iniciar Consultoria
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Localização & Social -->
+    <section id="localizacao" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20">
+            <div class="scroll-reveal">
+                <span class="text-mestra-gold text-xs font-bold uppercase tracking-[0.4em] block mb-4">Unidade Técnica</span>
+                <h2 class="text-4xl font-serif text-mestra-blue mb-10 text-mestra-blue">Presença em Guarulhos</h2>
+                <div class="bg-gray-50 rounded-[40px] p-10 border border-gray-100 shadow-sm">
+                    <p class="font-bold text-2xl text-mestra-blue mb-2 text-mestra-blue">Sede Administrativa</p>
+                    <p class="text-gray-500 font-light text-lg mb-10 leading-relaxed">
+                        R. Aratuibe - Jardim Pres. Dutra<br>
+                        CEP: 07172-050
+                    </p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=R.+Aratuibe+-+Jardim+Pres.+Dutra,+Guarulhos+-+SP,+07172-050" target="_blank" class="inline-flex items-center gap-4 bg-white px-8 py-4 rounded-2xl border border-gray-200 hover:border-mestra-gold group transition-all">
+                        <span class="font-bold text-sm text-mestra-blue">Ver no Google Maps</span>
+                        <div class="w-10 h-10 bg-mestra-blue text-white rounded-full flex items-center justify-center group-hover:translate-x-2 transition-transform">
+                            <i data-lucide="navigation-2" size="20"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center scroll-reveal" style="transition-delay: 200ms;">
+                <span class="text-mestra-gold text-xs font-bold uppercase tracking-[0.4em] block mb-4">Acompanhe-nos</span>
+                <h2 class="text-4xl font-serif text-mestra-blue mb-8 text-mestra-blue">Redes Sociais</h2>
+                <p class="text-gray-500 font-light text-xl mb-12 leading-relaxed">
+                    Bastidores, lotes exclusivos e projetos finalizados.
+                </p>
+                <a href="https://www.instagram.com/mestra_advisors" target="_blank" class="inline-flex items-center gap-4 bg-mestra-blue text-white px-10 py-5 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-mestra-gold transition-all shadow-lg self-start">
+                    <i data-lucide="instagram"></i>
+                    @mestra_advisors
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a id="whatsapp-floating" href="https://wa.me/5511987585676?text=Ol%C3%A1%20vim%20do%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20" target="_blank" class="fixed bottom-8 right-8 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-50">
+        <i data-lucide="message-circle" size="32"></i>
+    </a>
+
+    <!-- Rodapé -->
+    <footer class="bg-white py-20 border-t border-gray-100 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col items-center mb-10">
+                <div class="w-10 h-10 bg-mestra-blue rounded flex items-center justify-center text-white mb-4">
+                    <i data-lucide="mountain" size="20"></i>
+                </div>
+                <span class="text-3xl font-bold text-mestra-blue uppercase text-mestra-blue">Mestra Advisors</span>
+            </div>
+            <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">© 2024 Mestra Advisors | Todos os Direitos Reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // WhatsApp Link Configuration
+        const WP_DIRECT_LINK = "https://wa.me/5511987585676?text=Ol%C3%A1%20vim%20do%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20";
+
+        // n8n Webhook URL (Replace with your actual production Webhook URL from n8n)
+        const N8N_WEBHOOK_URL = "SUA_URL_WEBHOOK_N8N"; 
+
+        // Dynamic form display
+        const profileSelect = document.getElementById('user-profile');
+        const obraFields = document.getElementById('obra-fields');
+        profileSelect.addEventListener('change', (e) => {
+            obraFields.classList.toggle('hidden', e.target.value !== 'obra');
+        });
+
+        // Universal n8n Sender
+        async function sendToN8n(payload) {
+            try {
+                await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Erro no n8n", err);
+            }
+        }
+
+        // Master Form Handler
+        document.getElementById('master-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.classList.add('btn-loading');
+
+            const payload = {
+                source: "Site_Mestra_Advisors",
+                type: "Lead_Direto",
+                nome: document.getElementById('full-name').value,
+                whatsapp: document.getElementById('whatsapp-num').value,
+                perfil: profileSelect.value,
+                timestamp: new Date().toISOString()
+            };
+
+            if (payload.perfil === 'obra') {
+                payload.detalhes_obra = {
+                    pedra: document.getElementById('stone-type').value,
+                    ambiente: document.getElementById('environment').value,
+                    endereco: document.getElementById('obra-address').value,
+                    tem_metragem: document.querySelector('input[name="metragem"]:checked').value
+                };
+            }
+
+            // Dispara para o n8n
+            await sendToN8n(payload);
+
+            // Redireciona para o WhatsApp
+            window.location.href = WP_DIRECT_LINK;
+        });
+
+        // Partner Form Handler
+        document.getElementById('partner-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                source: "Site_Mestra_Advisors",
+                type: "Novo_Parceiro",
+                nome: document.getElementById('partner-name').value,
+                email: document.getElementById('partner-email').value,
+                area: document.getElementById('partner-area').value,
+                timestamp: new Date().toISOString()
+            };
+
+            await sendToN8n(payload);
+            window.location.href = WP_DIRECT_LINK;
+        });
+    </script>
+</body>
+</html>
