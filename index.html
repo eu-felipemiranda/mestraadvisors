@@ -361,6 +361,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </footer>
 
     <script>
+        // 1. O Endereço do n8n (Copie do nó Webhook no n8n)
+const N8N_WEBHOOK_URL = "http://localhost:5678/webhook-test/e77bf861-5c7a-49a5-805f-fade4a3e7d59";
+
+// 2. O Link do seu WhatsApp
+const WP_LINK = "[https://wa.me/5511987585676?text=Olá](https://wa.me/5511987585676?text=Olá)! Vim do site e gostaria de consultoria.";
+
+// 3. A Função que faz a mágica
+async function enviarParaN8n(dados) {
+    try {
+        await fetch(N8N_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        });
+    } catch (error) {
+        console.error("Erro ao enviar para o n8n", error);
+    }
+    // Após tentar enviar, ele sempre leva o usuário para o WhatsApp
+    window.location.href = WP_LINK;
+}
+
+// 4. Ligar isto ao seu botão de "Enviar"
+document.getElementById('master-form').addEventListener('submit', function(e) {
+    e.preventDefault(); // Impede o site de recarregar
+    
+    // Coleta os dados dos campos
+    const dadosFormulario = {
+        nome: document.getElementById('full-name').value,
+        whatsapp: document.getElementById('whatsapp-num').value,
+        perfil: document.getElementById('user-profile').value,
+        data: new Date().toLocaleString()
+    };
+
+    enviarParaN8n(dadosFormulario);
+});
         lucide.createIcons();
 
         // Reveal animations
