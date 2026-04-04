@@ -2,12 +2,12 @@
 <html lang="pt-pt">
 <head>
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TW3PCBC6');</script>
-<!-- End Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TW3PCBC6');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mestra Advisors | Marmoraria de Alto Padrão</title>
@@ -100,10 +100,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TW3PCBC6"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TW3PCBC6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
     <!-- Navegação -->
     <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
@@ -112,7 +110,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <i data-lucide="mountain" size="28"></i>
                 </div>
                 <div class="flex flex-col leading-none">
-                    <span class="text-2xl font-bold tracking-tighter text-mestra-blue uppercase text-mestra-blue">Mestra</span>
+                    <span class="text-2xl font-bold tracking-tighter text-mestra-blue uppercase">Mestra</span>
                     <span class="text-[11px] tracking-[0.4em] text-mestra-gold font-bold uppercase">Advisors</span>
                 </div>
             </div>
@@ -141,9 +139,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     Ver Portfólio
                 </a>
             </div>
-        </div>
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-            <i data-lucide="chevron-down" class="text-white"></i>
         </div>
     </section>
 
@@ -317,8 +312,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="bg-gray-50 rounded-[40px] p-10 border border-gray-100 shadow-sm">
                     <p class="font-bold text-2xl text-mestra-blue mb-2 text-mestra-blue">Sede Administrativa</p>
                     <p class="text-gray-500 font-light text-lg mb-10 leading-relaxed">
-                        R. Aratuibe - Jardim Pres. Dutra<br>
-                        CEP: 07172-050
+                        R. Aratuibe - Jardim Pres. Dutra<br>CEP: 07172-050
                     </p>
                     <a href="https://www.google.com/maps/search/?api=1&query=R.+Aratuibe+-+Jardim+Pres.+Dutra,+Guarulhos+-+SP,+07172-050" target="_blank" class="inline-flex items-center gap-4 bg-white px-8 py-4 rounded-2xl border border-gray-200 hover:border-mestra-gold group transition-all">
                         <span class="font-bold text-sm text-mestra-blue">Ver no Google Maps</span>
@@ -335,8 +329,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     Bastidores, lotes exclusivos e projetos finalizados.
                 </p>
                 <a href="https://www.instagram.com/mestra_advisors" target="_blank" class="inline-flex items-center gap-4 bg-mestra-blue text-white px-10 py-5 rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-mestra-gold transition-all shadow-lg self-start">
-                    <i data-lucide="instagram"></i>
-                    @mestra_advisors
+                    <i data-lucide="instagram"></i> @mestra_advisors
                 </a>
             </div>
         </div>
@@ -354,16 +347,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="w-10 h-10 bg-mestra-blue rounded flex items-center justify-center text-white mb-4">
                     <i data-lucide="mountain" size="20"></i>
                 </div>
-                <span class="text-3xl font-bold text-mestra-blue uppercase text-mestra-blue">Mestra Advisors</span>
+                <span class="text-3xl font-bold text-mestra-blue uppercase text-mestra-blue leading-none">Mestra Advisors</span>
             </div>
             <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">© 2024 Mestra Advisors | Todos os Direitos Reservados</p>
         </div>
     </footer>
 
     <script>
+        // Inicialização Principal
         lucide.createIcons();
 
-        // Reveal animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -371,77 +364,61 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }, { threshold: 0.1 });
         document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-        // WhatsApp Link Configuration
-        const WP_DIRECT_LINK = "https://wa.me/5511987585676?text=Ol%C3%A1%20vim%20do%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20";
+        // CONFIGURAÇÕES DE INTEGRAÇÃO (Atenção aqui)
+        const N8N_WEBHOOK_URL = "http://localhost:5678/webhook-test/e77bf861-5c7a-49a5-805f-fade4a3e7d59"; 
+        const WP_LINK = "https://wa.me/5511987585676?text=Olá! Vim do site e gostaria de consultoria.";
 
-        // n8n Webhook URL (Replace with your actual production Webhook URL from n8n)
-        const N8N_WEBHOOK_URL = "SUA_URL_WEBHOOK_N8N"; 
-
-        // Dynamic form display
+        // Controle do Formulário
         const profileSelect = document.getElementById('user-profile');
         const obraFields = document.getElementById('obra-fields');
         profileSelect.addEventListener('change', (e) => {
             obraFields.classList.toggle('hidden', e.target.value !== 'obra');
         });
 
-        // Universal n8n Sender
-        async function sendToN8n(payload) {
+        // Função de Envio Universal
+        async function enviarParaN8n(dados) {
             try {
                 await fetch(N8N_WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(dados)
                 });
             } catch (err) {
-                console.error("Erro no n8n", err);
+                console.error("Erro no n8n:", err);
             }
+            // Sempre redireciona para o WhatsApp no final
+            window.location.href = WP_LINK;
         }
 
-        // Master Form Handler
+        // Evento Formulário Principal
         document.getElementById('master-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.classList.add('btn-loading');
+            document.getElementById('submit-btn').classList.add('btn-loading');
 
             const payload = {
-                source: "Site_Mestra_Advisors",
-                type: "Lead_Direto",
+                source: "Site_Mestra",
                 nome: document.getElementById('full-name').value,
                 whatsapp: document.getElementById('whatsapp-num').value,
                 perfil: profileSelect.value,
+                endereco: document.getElementById('obra-address')?.value || 'N/A',
                 timestamp: new Date().toISOString()
             };
 
-            if (payload.perfil === 'obra') {
-                payload.detalhes_obra = {
-                    pedra: document.getElementById('stone-type').value,
-                    ambiente: document.getElementById('environment').value,
-                    endereco: document.getElementById('obra-address').value,
-                    tem_metragem: document.querySelector('input[name="metragem"]:checked').value
-                };
-            }
-
-            // Dispara para o n8n
-            await sendToN8n(payload);
-
-            // Redireciona para o WhatsApp
-            window.location.href = WP_DIRECT_LINK;
+            await enviarParaN8n(payload);
         });
 
-        // Partner Form Handler
+        // Evento Formulário Parceiro
         document.getElementById('partner-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const payload = {
-                source: "Site_Mestra_Advisors",
-                type: "Novo_Parceiro",
+                source: "Parceiro_Site",
                 nome: document.getElementById('partner-name').value,
                 email: document.getElementById('partner-email').value,
                 area: document.getElementById('partner-area').value,
                 timestamp: new Date().toISOString()
             };
 
-            await sendToN8n(payload);
-            window.location.href = WP_DIRECT_LINK;
+            await enviarParaN8n(payload);
         });
     </script>
 </body>
