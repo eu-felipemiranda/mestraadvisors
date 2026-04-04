@@ -29,8 +29,6 @@
         input, select, textarea { border-bottom: 1px solid #e2e8f0 !important; border-radius: 0 !important; padding: 0.85rem 0 !important; background: transparent !important; width: 100%; }
         input:focus, select:focus { border-color: var(--mestra-gold) !important; outline: none !important; }
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .animate-fade-in { animation: fadeIn 0.5s ease-in forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .btn-loading { position: relative; color: transparent !important; pointer-events: none; }
         .btn-loading::after { content: ""; position: absolute; width: 20px; height: 20px; top: 50%; left: 50%; margin: -10px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -41,8 +39,8 @@
     <div id="debug-console"></div>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TW3PCBC6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 h-24">
+        <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-mestra-blue rounded flex items-center justify-center text-white"><i data-lucide="mountain" size="28"></i></div>
                 <div class="flex flex-col leading-none">
@@ -52,8 +50,6 @@
             </div>
             <div class="hidden md:flex space-x-10 text-xs font-bold uppercase tracking-[0.2em]">
                 <a href="#galeria" class="hover:text-mestra-gold transition text-mestra-blue">Portfólio</a>
-                <a href="#parceiros" class="hover:text-mestra-gold transition text-mestra-blue">Parcerias</a>
-                <a href="#localizacao" class="hover:text-mestra-gold transition text-mestra-blue">Onde Estamos</a>
                 <a href="#cadastro" class="bg-mestra-blue text-white px-6 py-3 rounded-full hover:bg-mestra-gold transition">Consultoria</a>
             </div>
         </div>
@@ -66,20 +62,24 @@
             <p class="text-lg md:text-2xl text-gray-200 mb-12 max-w-2xl mx-auto font-light leading-relaxed">Consultoria técnica especializada em rochas ornamentais para projectos de alto padrão.</p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
                 <a href="#cadastro" class="bg-mestra-gold text-white px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest shadow-2xl hover:scale-105 transition-transform">Iniciar Diagnóstico</a>
-                <a href="#galeria" class="border border-white/30 backdrop-blur-sm text-white px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-mestra-blue transition-all">Ver Portfólio</a>
             </div>
         </div>
     </section>
 
-    <!-- Seções omitidas para brevidade, mantendo a estrutura funcional do formulário -->
+    <!-- Formulário Principal -->
     <section id="cadastro" class="py-32 bg-gray-50">
         <div class="max-w-4xl mx-auto px-6">
             <div class="bg-white rounded-[40px] shadow-2xl p-8 md:p-16 scroll-reveal">
+                <h2 class="text-3xl font-serif text-mestra-blue mb-10 text-center uppercase tracking-tight">Diagnóstico Advisors</h2>
                 <form id="master-form" class="space-y-10">
                     <div class="grid md:grid-cols-2 gap-10">
                         <div class="space-y-2">
-                            <label class="text-[10px] font-bold text-mestra-gold uppercase">O que descreve o seu momento?</label>
-                            <select id="user-profile" required><option value="">Selecione...</option><option value="obra">Obra em andamento</option><option value="parceiro">Parceria</option></select>
+                            <label class="text-[10px] font-bold text-mestra-gold uppercase">Momento da Obra</label>
+                            <select id="user-profile" required>
+                                <option value="">Selecione...</option>
+                                <option value="obra">Obra em andamento</option>
+                                <option value="parceiro">Sou Arquiteto/Parceiro</option>
+                            </select>
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] font-bold text-mestra-gold uppercase">Nome Completo</label>
@@ -107,28 +107,24 @@
         const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
         document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-        // ENDEREÇO DO N8N COM O SEU IP EXTERNO
+        // Tente usar uma URL HTTPS ou use o truque do redirecionamento
         const N8N_WEBHOOK_URL = "http://187.77.230.12:5678/webhook-test/e77bf861-5c7a-49a5-805f-fade4a3e7d59"; 
-        const WP_LINK = "https://wa.me/5511987585676?text=Olá! Vim do site e gostaria de consultoria.";
+        const WP_LINK = "https://wa.me/5511987585676?text=Ol%C3%A1%20vim%20do%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es";
 
         async function enviarParaN8n(dados) {
-            const debug = document.getElementById('debug-console');
+            const btn = document.getElementById('submit-btn');
             try {
-                const response = await fetch(N8N_WEBHOOK_URL, {
+                // O modo 'no-cors' pode ajudar a enviar mas você não verá a resposta
+                await fetch(N8N_WEBHOOK_URL, {
                     method: 'POST',
+                    mode: 'no-cors', 
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dados)
                 });
-                
-                if (!response.ok) throw new Error("Erro na resposta do servidor");
-                
             } catch (err) {
-                console.error("ERRO DETECTADO:", err);
-                debug.style.display = "block";
-                debug.innerHTML = `<b>Erro de Conexão:</b> O site não conseguiu falar com o n8n. <br>Motivo provável: O seu navegador bloqueou o envio porque o site é seguro (HTTPS) e o n8n não (HTTP). <br><br><i>Para testar mesmo assim, clique no ícone de 'escudo' ou 'cadeado' na barra de endereço do seu navegador e autorize 'Conteúdo Inseguro' ou use um túnel HTTPS (Ngrok).</i>`;
-                // Espera 5 segundos para que possa ler o erro antes de redirecionar
-                await new Promise(r => setTimeout(r, 6000));
+                console.warn("N8N Offline ou Bloqueado, seguindo para WhatsApp...");
             }
+            // Garante que o cliente SEMPRE vá para o WhatsApp
             window.location.href = WP_LINK;
         }
 
