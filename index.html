@@ -443,27 +443,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             await sendToN8n(payload);
             window.location.href = WP_DIRECT_LINK;
         });
-       // 1. O Endereço do n8n (Copiado da aba 'Test URL' no n8n)
-const N8N_WEBHOOK_URL = "http://localhost:5678/webhook-test/e77bf861-5c7a-49a5-805f-fade4a3e7d59";
-
-// 2. O Link do seu WhatsApp (URL limpa entre aspas, SEM colchetes)
-const WP_LINK = "https://wa.me/5511987585676?text=Olá https://wa.me/5511987585676?text=Olá! Vim do site e gostaria de consultoria.";
-
-// 3. A Função que faz a mágica
-async function enviarParaN8n(dados) {
-    try {
-        await fetch(N8N_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dados)
-        });
-    } catch (error) {
-        console.error("Erro ao enviar para o n8n", error);
-    }
-    // Redireciona para o WhatsApp após o envio dos dados
-    window.location.href = WP_LINK;
-}
-
     </script>
 </body>
 </html>
