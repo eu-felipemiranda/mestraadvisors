@@ -322,8 +322,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <a href="https://www.google.com/maps/search/?api=1&query=R.+Aratuibe+-+Jardim+Pres.+Dutra,+Guarulhos+-+SP,+07172-050" target="_blank" class="inline-flex items-center gap-4 bg-white px-8 py-4 rounded-2xl border border-gray-200 hover:border-mestra-gold group transition-all">
                         <span class="font-bold text-sm text-mestra-blue">Ver no Google Maps</span>
                         <div class="w-10 h-10 bg-mestra-blue text-white rounded-full flex items-center justify-center group-hover:translate-x-2 transition-transform">
-                            <i data-lucide="navigation-2" size="20"></i>
                         </div>
+                            <i data-lucide="navigation-2" size="20"></i>
                     </a>
                 </div>
             </div>
@@ -443,5 +443,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             window.location.href = WP_DIRECT_LINK;
         });
     </script>
+<section id="cadastro" class="py-32 bg-gray-50">
+    ... (todo aquele código do formulário, inputs, botões) ...
+</section>
+
+<script>
+document.getElementById('master-form').addEventListener('submit', async function(e) {
+    e.preventDefault(); 
+    
+    const btn = document.getElementById('submit-btn');
+    const originalText = btn.innerText;
+    btn.innerText = 'ENVIANDO...';
+    btn.disabled = true;
+
+    // Coleta os dados (os IDs batem com o HTML acima)
+    const formData = {
+        perfil: document.getElementById('user-profile').value,
+        nome: document.getElementById('full-name').value,
+        whatsapp_cliente: document.getElementById('whatsapp-num').value,
+        tipo_rocha: document.getElementById('stone-type')?.value || 'Não informado',
+        ambiente: document.getElementById('environment')?.value || 'Não informado',
+        endereco: document.getElementById('obra-address')?.value || 'Não informado',
+        metragem: document.querySelector('input[name="metragem"]:checked')?.value || 'Não informado'
+    };
+
+    try {
+        // Envio para sua VPS na Hostinger
+        const response = await fetch('http://187.77.230.12:5678/webhook/e77bf861-5c7a-49a5-805f-fade4a3e7d59', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+
+     if (response.ok) {
+            const seuNumero = '5511987585676'; // Mantenha o 55 sempre!
+            const textoZap = encodeURIComponent(`Olá! Acabei de preencher o formulário no site. Meu nome é ${formData.nome}. Tenho interesse em um projeto de ${formData.perfil}.`);
+            
+            // CORREÇÃO AQUI: Link completo com a variável do texto
+            window.location.href = `https://wa.me/${seuNumero}?text=${textoZap}`;
+        } else {
+            alert('Erro no servidor do n8n. Verifique se o workflow está ativo.');
+        }
+    } catch (error) {
+        alert('Erro de conexão com a VPS.');
+    } finally {
+      const btn = document.getElementById('submit-btn');
+const originalText = btn.innerText;
+    }
+});
+</script>            
 </body>
 </html>
