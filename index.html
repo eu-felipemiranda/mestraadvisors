@@ -469,7 +469,7 @@ document.getElementById('master-form').addEventListener('submit', async function
     try {
         // 2. Envio para o n8n (URL Corrigida com uma barra apenas)
         // DICA: Use a URL de "Production" no n8n após testar
-        await fetch('https://n8n.theoneagency.shop/webhook/lead-mestra', {
+        await fetch('https://n8n.theoneagency.shop/webhook-test/lead-mestra', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
