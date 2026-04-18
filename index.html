@@ -452,45 +452,53 @@ document.getElementById('master-form').addEventListener('submit', async function
     e.preventDefault(); 
     
     const btn = document.getElementById('submit-btn');
-    const originalText = btn.innerText;
     btn.innerText = 'ENVIANDO...';
     btn.disabled = true;
 
-    // Coleta os dados (os IDs batem com o HTML acima)
+    // 1. Coleta os dados tratando campos vazios
     const formData = {
-        perfil: document.getElementById('user-profile').value,
-        nome: document.getElementById('full-name').value,
-        whatsapp_cliente: document.getElementById('whatsapp-num').value,
+        perfil: document.getElementById('user-profile').options[document.getElementById('user-profile').selectedIndex].text,
+        nome: document.getElementById('full-name').value.trim() || 'Não informado',
+        whatsapp_cliente: document.getElementById('whatsapp-num').value.trim() || 'Não informado',
         tipo_rocha: document.getElementById('stone-type')?.value || 'Não informado',
         ambiente: document.getElementById('environment')?.value || 'Não informado',
-        endereco: document.getElementById('obra-address')?.value || 'Não informado',
+        endereco: document.getElementById('obra-address')?.value.trim() || 'Não informado',
         metragem: document.querySelector('input[name="metragem"]:checked')?.value || 'Não informado'
     };
 
     try {
-        // Envio para sua VPS na Hostinger
-        const response = await fetch('http://187.77.230.12:5678/webhook/e77bf861-5c7a-49a5-805f-fade4a3e7d59', {
+        // 2. Envio para o n8n (URL Corrigida com uma barra apenas)
+        // DICA: Use a URL de "Production" no n8n após testar
+        await fetch('https://n8n.theoneagency.shop/webhook/lead-mestra', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         });
 
-     if (response.ok) {
-            const seuNumero = '5511987585676'; // Mantenha o 55 sempre!
-            const textoZap = encodeURIComponent(`Olá! Acabei de preencher o formulário no site. Meu nome é ${formData.nome}. Tenho interesse em um projeto de ${formData.perfil}.`);
-            
-            // CORREÇÃO AQUI: Link completo com a variável do texto
-            window.location.href = `https://wa.me/${seuNumero}?text=${textoZap}`;
-        } else {
-            alert('Erro no servidor do n8n. Verifique se o workflow está ativo.');
-        }
+        // 3. Montagem da mensagem para o WhatsApp
+        const seuNumero = '5511987585676'; 
+        
+        const mensagemZap = `Olá, vim do site!
+*Nome:* ${formData.nome}
+*Telefone:* ${formData.whatsapp_cliente}
+*Momento:* ${formData.perfil}
+*Rocha:* ${formData.tipo_rocha}
+*Ambiente:* ${formData.ambiente}
+*Metragem:* ${formData.metragem}
+*Endereço:* ${formData.endereco}`;
+
+        const textoEncoded = encodeURIComponent(mensagemZap);
+        
+        // 4. Redirecionamento
+        window.location.href = `https://wa.me/${seuNumero}?text=${textoEncoded}`;
+
     } catch (error) {
-        alert('Erro de conexão com a VPS.');
-    } finally {
-      const btn = document.getElementById('submit-btn');
-const originalText = btn.innerText;
+        console.error("Erro na automação:", error);
+        // Fallback: Se o n8n falhar, o cliente ainda vai pro seu Zap
+        const seuNumero = '5511987585676';
+        window.location.href = `https://wa.me/${seuNumero}?text=Erro no formulário, mas tenho interesse nos serviços!`;
     }
 });
-</script>            
+</script> 
 </body>
 </html>
