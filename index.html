@@ -359,10 +359,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </footer>
 
-    <script>
+   <script>
+        // 1. INICIALIZAÇÃO DE ÍCONES E ANIMAÇÕES
         lucide.createIcons();
 
-        // Reveal animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -370,135 +370,79 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }, { threshold: 0.1 });
         document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-        // WhatsApp Link Configuration
-        const WP_DIRECT_LINK = "https://wa.me/5511987585676?text=Ol%C3%A1%20vim%20do%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20";
-
-        // n8n Webhook URL (Replace with your actual production Webhook URL from n8n)
-        const N8N_WEBHOOK_URL = "SUA_URL_WEBHOOK_N8N"; 
-
-        // Dynamic form display
+        // 2. MOSTRAR/ESCONDER CAMPOS DE OBRA
         const profileSelect = document.getElementById('user-profile');
         const obraFields = document.getElementById('obra-fields');
-        profileSelect.addEventListener('change', (e) => {
-            obraFields.classList.toggle('hidden', e.target.value !== 'obra');
-        });
-
-        // Universal n8n Sender
-        async function sendToN8n(payload) {
-            try {
-                await fetch(N8N_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-            } catch (err) {
-                console.error("Erro no n8n", err);
-            }
+        if(profileSelect) {
+            profileSelect.addEventListener('change', (e) => {
+                obraFields.classList.toggle('hidden', e.target.value !== 'obra');
+            });
         }
 
-        // Master Form Handler
-        document.getElementById('master-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // 3. ENVIO DO FORMULÁRIO PRINCIPAL (MASTER FORM)
+        document.getElementById('master-form').addEventListener('submit', async function(e) {
+            e.preventDefault(); 
+            
             const btn = document.getElementById('submit-btn');
-            btn.classList.add('btn-loading');
+            const originalText = btn.innerText;
+            btn.innerText = 'ENVIANDO...';
+            btn.disabled = true;
 
-            const payload = {
-                source: "Site_Mestra_Advisors",
-                type: "Lead_Direto",
-                nome: document.getElementById('full-name').value,
-                whatsapp: document.getElementById('whatsapp-num').value,
-                perfil: profileSelect.value,
-                timestamp: new Date().toISOString()
+            const formData = {
+                perfil: document.getElementById('user-profile').options[document.getElementById('user-profile').selectedIndex].text,
+                nome: document.getElementById('full-name').value.trim(),
+                whatsapp_cliente: document.getElementById('whatsapp-num').value.trim(),
+                tipo_rocha: document.getElementById('stone-type')?.value || 'Não informado',
+                ambiente: document.getElementById('environment')?.value || 'Não informado',
+                endereco: document.getElementById('obra-address')?.value.trim() || 'Não informado',
+                metragem: document.querySelector('input[name="metragem"]:checked')?.value || 'Não informado',
+                origem: "Site Mestra Advisors"
             };
 
-            if (payload.perfil === 'obra') {
-                payload.detalhes_obra = {
-                    pedra: document.getElementById('stone-type').value,
-                    ambiente: document.getElementById('environment').value,
-                    endereco: document.getElementById('obra-address').value,
-                    tem_metragem: document.querySelector('input[name="metragem"]:checked').value
-                };
+            try {
+                // Tenta enviar para o n8n (URL de TESTE para capturar agora)
+                await fetch('https://n8n.theoneagency.shop/webhook-test/lead-mestra', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                // Redireciona para o WhatsApp com os dados estruturados
+                const seuNumero = '5511987585676'; 
+                const mensagemZap = `Olá, vim do site!\n\n*Nome:* ${formData.nome}\n*Telefone:* ${formData.whatsapp_cliente}\n*Momento:* ${formData.perfil}\n*Rocha:* ${formData.tipo_rocha}\n*Ambiente:* ${formData.ambiente}\n*Metragem:* ${formData.metragem}\n*Endereço:* ${formData.endereco}`;
+                
+                window.location.href = `https://wa.me/${seuNumero}?text=${encodeURIComponent(mensagemZap)}`;
+
+            } catch (error) {
+                console.error("Erro na automação:", error);
+                // Se falhar a automação, não perde o lead, manda direto pro Zap
+                window.location.href = `https://wa.me/5511987585676?text=Olá, tentei enviar o formulário mas houve um erro técnico. Meu nome é ${formData.nome}.`;
             }
-
-            // Dispara para o n8n
-            await sendToN8n(payload);
-
-            // Redireciona para o WhatsApp
-            window.location.href = WP_DIRECT_LINK;
         });
 
-        // Partner Form Handler
-        document.getElementById('partner-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const payload = {
-                source: "Site_Mestra_Advisors",
-                type: "Novo_Parceiro",
-                nome: document.getElementById('partner-name').value,
-                email: document.getElementById('partner-email').value,
-                area: document.getElementById('partner-area').value,
-                timestamp: new Date().toISOString()
-            };
-
-            await sendToN8n(payload);
-            window.location.href = WP_DIRECT_LINK;
-        });
+        // 4. ENVIO DO FORMULÁRIO DE PARCEIROS (OPCIONAL)
+        const partnerForm = document.getElementById('partner-form');
+        if(partnerForm) {
+            partnerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const payload = {
+                    type: "Novo_Parceiro",
+                    nome: document.getElementById('partner-name').value,
+                    email: document.getElementById('partner-email').value,
+                    area: document.getElementById('partner-area').value
+                };
+                try {
+                    await fetch('https://n8n.theoneagency.shop/webhook-test/lead-mestra', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    window.location.href = `https://wa.me/5511987585676?text=Olá, sou ${payload.nome} e quero ser parceiro Advisors.`;
+                } catch(err) {
+                    window.location.href = `https://wa.me/5511987585676`;
+                }
+            });
+        }
     </script>
-<section id="cadastro" class="py-32 bg-gray-50">
-    ... (todo aquele código do formulário, inputs, botões) ...
-</section>
-
-<script>
-document.getElementById('master-form').addEventListener('submit', async function(e) {
-    e.preventDefault(); 
-    
-    const btn = document.getElementById('submit-btn');
-    btn.innerText = 'ENVIANDO...';
-    btn.disabled = true;
-
-    // 1. Coleta os dados tratando campos vazios
-    const formData = {
-        perfil: document.getElementById('user-profile').options[document.getElementById('user-profile').selectedIndex].text,
-        nome: document.getElementById('full-name').value.trim() || 'Não informado',
-        whatsapp_cliente: document.getElementById('whatsapp-num').value.trim() || 'Não informado',
-        tipo_rocha: document.getElementById('stone-type')?.value || 'Não informado',
-        ambiente: document.getElementById('environment')?.value || 'Não informado',
-        endereco: document.getElementById('obra-address')?.value.trim() || 'Não informado',
-        metragem: document.querySelector('input[name="metragem"]:checked')?.value || 'Não informado'
-    };
-
-    try {
-        // 2. Envio para o n8n (URL Corrigida com uma barra apenas)
-        // DICA: Use a URL de "Production" no n8n após testar
-        await fetch('https://n8n.theoneagency.shop/webhook-test/lead-mestra', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        });
-
-        // 3. Montagem da mensagem para o WhatsApp
-        const seuNumero = '5511987585676'; 
-        
-        const mensagemZap = `Olá, vim do site!
-*Nome:* ${formData.nome}
-*Telefone:* ${formData.whatsapp_cliente}
-*Momento:* ${formData.perfil}
-*Rocha:* ${formData.tipo_rocha}
-*Ambiente:* ${formData.ambiente}
-*Metragem:* ${formData.metragem}
-*Endereço:* ${formData.endereco}`;
-
-        const textoEncoded = encodeURIComponent(mensagemZap);
-        
-        // 4. Redirecionamento
-        window.location.href = `https://wa.me/${seuNumero}?text=${textoEncoded}`;
-
-    } catch (error) {
-        console.error("Erro na automação:", error);
-        // Fallback: Se o n8n falhar, o cliente ainda vai pro seu Zap
-        const seuNumero = '5511987585676';
-        window.location.href = `https://wa.me/${seuNumero}?text=Erro no formulário, mas tenho interesse nos serviços!`;
-    }
-});
-</script> 
 </body>
 </html>
